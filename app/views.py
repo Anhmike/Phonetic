@@ -11,4 +11,9 @@ def transcribe(request, text):
 	url = "http://www.dictionaryapi.com/api/v1/references/collegiate/xml/" + text +"?key=" + key;
 	xml = urlopen(url).read()
 	root = ET.fromstring(xml)
-	return HttpResponse(root[0][4].text)
+	transcription = "invalid - try again"
+	for e in root[0]:
+		if e.tag == "pr":
+			transcription = e.text
+			break
+	return HttpResponse(transcription)
