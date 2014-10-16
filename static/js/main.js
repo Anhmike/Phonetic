@@ -1,3 +1,4 @@
+$("#transcribeForm #userinput").focus();
 
 $("#transcribeForm").submit(function(event) {
 	event.preventDefault();
@@ -14,6 +15,14 @@ $("#transcribeForm").submit(function(event) {
 
 })
 
+$("#buttons span").click(function() {
+	if ($(this).children("p").hasClass("selected") == false) {
+		$("#buttons span p").each(function() {
+			$(this).removeClass("selected");
+		});
+		$(this).children("p").addClass("selected");
+	}
+});
 
 $(function(){
 	var $window = $(window);
