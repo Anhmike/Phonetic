@@ -3,9 +3,11 @@ $("#transcribeForm #userinput").focus();
 $("#transcribeForm").submit(function(event) {
 	event.preventDefault();
 	var text = $("#userinput").val();
-	var key = "023c06b3-d060-417d-96f0-44201d53f2db"
-	//var url = "http://www.dictionaryapi.com/api/v1/references/collegiate/xml/" + text +"?key=" + key;
-	var url = "/transcribe/" + text
+	var format = 'IPA'
+	if ($("#APA").hasClass("selected") == true) {
+		format = 'APA'
+	}
+	var url = "/transcribe/" + format + "/" + text
 	$("#userinput").val("");
 	$.ajax({
 		url: url,
@@ -36,3 +38,4 @@ $(function(){
 		$("#transcribeForm").height(winHeight/2);
 	});
 });
+
