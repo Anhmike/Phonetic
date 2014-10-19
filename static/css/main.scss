@@ -29,7 +29,8 @@ h1 {
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	margin-top: -37px;
+	margin-left: -110px;
 	span p {
 		margin: 7px 20px;
 		line-height: $buttonsize;
