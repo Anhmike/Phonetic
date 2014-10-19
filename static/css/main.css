@@ -1,8 +1,8 @@
 body, html {
-  background-color: #ffa07a;
+  background-color: #ecf0f1;
   font-family: 'Montserrat', sans-serif;
   margin: 0;
-  color: black;
+  color: #2c3e50;
   height: 100%; }
 
 h1 {
@@ -25,23 +25,29 @@ h1 {
   left: 50%;
   transform: translate(-50%, -50%); }
   #buttons span p {
-    margin: 7px;
+    margin: 7px 20px;
     line-height: 60px;
     float: left;
     text-align: center;
     height: 60px;
-    background-color: #ffd6a0;
-    border-radius: 100%;
+    background-color: #9b59b6;
+    border-radius: 15px;
     width: 60px;
     font-size: 20px;
-    border: 1px solid #ffc67a;
-    color: #333; }
+    border: 0px solid #ffc67a;
+    color: white; }
+    #buttons span p.format {
+      margin: 7px 0; }
+    #buttons span p.left {
+      border-radius: 15px 0 0 15px; }
+    #buttons span p.right {
+      border-radius: 0 15px 15px 0; }
     #buttons span p.selected.format, #buttons span p.format:hover {
-      background-color: #80cdac;
-      border: 1px solid #65b794; }
+      background-color: #8e44ad;
+      border: 0px solid #65b794; }
   #buttons #help {
     font-size: 50px;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: #16a085;
     border: 0px solid #777; }
 
 form {
@@ -50,13 +56,14 @@ form {
   form input {
     border: 0px solid black;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: #34495e;
     font-size: 100px;
     text-align: center;
     font-family: 'Montserrat', sans-serif;
     height: inherit;
     margin: 0;
-    padding: 0; }
+    padding: 0;
+    color: white; }
   form #submit {
     height: 0px;
     width: 0px;

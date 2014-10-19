@@ -17,15 +17,14 @@ $("#transcribeForm").submit(function(event) {
 
 })
 
-// uncomment when APA is supported
-// $("#buttons span").click(function() {
-// 	if ($(this).children("p").hasClass("selected") == false && $(this).children("p").hasClass("format")) {
-// 		$("#buttons span p").each(function() {
-// 			$(this).removeClass("selected");
-// 		});
-// 		$(this).children("p").addClass("selected");
-// 	}
-// });
+$("#buttons span").click(function() {
+	if ($(this).children("p").hasClass("selected") == false && $(this).children("p").hasClass("format")) {
+		$("#buttons span p").each(function() {
+			$(this).removeClass("selected");
+		});
+		$(this).children("p").addClass("selected");
+	}
+});
 
 $(function(){
 	var $window = $(window);
@@ -43,7 +42,7 @@ $(function(){
 var save;
 $("#help").hover(function() {
 	save = [$("#transcription p").html(),$("#transcription p").css("font-size")];
-	$("#transcription p").css("font-size", "20px");
+	$("#transcription p").css("font-size", "40px");
 	$("#transcription p").html("Welcome to Phonetic.me! Use this tool to turn English words into phonetics. Type a word in the box below and hit enter. Click the buttons to switch between IPA and APA (coming soon).");
 }, 
 function() {
