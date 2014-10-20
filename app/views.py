@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from nltk.corpus import cmudict
+import json
 import nltk
 import os
 
@@ -70,44 +71,52 @@ ipadict = {
 def index(request):
 	return render(request, 'index.html')
 	
-def transcribe(request, format, text):
+def transcribe(request, text):
 	wordlist = text.split(" ")
-	transcription = ""
+	response_data = {}
+	response_data["valid"] = True
+	arpatrans = ""
+	ipatrans = ""
+
 	for word in wordlist:
 		try:
-
 			phonemes = cmudict.dict()[word.lower()][0]
 
 			# ARPABET
-			if format == "ARPA":
-				for e in phonemes:
-					transcription += e + "-"
-				transcription = transcription[:-1] + " "
+			for e in phonemes:
+				arpatrans += e + "-"
+			arpatrans = arpatrans[:-1] + " "
 
 			# IPA
-			elif format == "IPA":
+			#   remove stress numbers
+			ipaphones = phonemes
+			for i, p in enumerate(ipaphones):
+				if p[-1] in ['0','1','2']:
+					ipaphones[i] = p[:-1]
 
-				# remove stress numbers
-				for i, p in enumerate(phonemes):
-					if p[-1] in ['0','1','2']:
-						phonemes[i] = p[:-1]
+			#   replace with ipa characters
+			ipaphones = [ipadict[p] for p in ipaphones]
+			for e in ipaphones:
+				ipatrans += e
+			ipatrans += ' '
 
-				# replace with ipa characters
-				phonemes = [ipadict[p] for p in phonemes]
-				for e in phonemes:
-					transcription += e
-				transcription += ' '
-
-				# convert to unicode
-				transcription =  transcription.decode('unicode-escape')	
+			#   convert to unicode
+			ipatrans = ipatrans.decode('unicode-escape')	
 
 		except:
-			pass
+			response_data["valid"] = False
 
-	if transcription == "" and text != "":
-		transcription = "invalid - try again"
+	# handle word not in dict
+	if arpatrans == "" and text != "":
+		response_data["valid"] = False
 
+	# removing trailing space
 	else:
-		transcription = transcription[:-1]
+		arpatrans = arpatrans[:-1]
+		ipatrans = ipatrans[:-1]
 
-	return HttpResponse(transcription)
+	response_data["ipa"] = ipatrans
+	response_data["arpa"] = arpatrans
+
+	return HttpResponse(json.dumps(response_data), content_type="application/json")
+

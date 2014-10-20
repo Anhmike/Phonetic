@@ -1,29 +1,61 @@
 $("#transcribeForm #userinput").focus();
 
+numRequests = 0;
+validRequests = 0;
+// remember words requested, so if user requests same word, just fetch from cache
+wordcache = {};
+current_word = {
+	valid : true,
+	ipa: "Type below to transcribe!",
+	arpa: "Type below to transcribe!"
+};
+
 $("#transcribeForm").submit(function(event) {
 	event.preventDefault();
-	var text = $("#userinput").val();
-	var format = 'IPA'
-	if ($("#ARPA").hasClass("selected") == true) {
-		format = 'ARPA'
+	if (numRequests > 500) {
+		$("#transcription p").html("you're doing that too much");
 	}
-	var url = "/transcribe/" + format + "/" + text
-	$("#userinput").val("");
-	$.ajax({
-		url: url,
-	}).done(function(data) {
-		$("#transcription p").html(data);
-	});
-
+	else {
+		var text = $("#userinput").val();
+		var url = "/transcribe/" + text
+		$("#userinput").val("");
+		$.ajax({
+			url: url,
+		}).done(function(data) {
+			current_word = data;
+			if (data.valid) {
+				validRequests += 1;
+				if ($("#IPA").hasClass("selected") == true) {
+					$("#transcription p").html(data.ipa);
+				} else if ($("#ARPA").hasClass("selected") == true) {
+					$("#transcription p").html(data.arpa);
+				}
+			} else {
+				numRequests += 1;
+				$("#transcription p").html("invalid - try again");
+			}
+		});
+	}
 })
 
 $("#buttons span").click(function() {
+	// if not already selected and in the format button group:
 	if ($(this).children("p").hasClass("selected") == false && $(this).children("p").hasClass("format")) {
 		$("#buttons span p").each(function() {
 			$(this).removeClass("selected");
 		});
 		$(this).children("p").addClass("selected");
+		if ($(this).children("p").attr("id") == "IPA") {
+			$("#transcription p").html(current_word.ipa);
+		} else if ($(this).children("p").attr("id") == "ARPA") {
+			$("#transcription p").html(current_word.arpa);
+		}
 	}
+	$("#transcribeForm #userinput").focus();
+});
+
+$("#transcription").click(function() {
+	$("#transcribeForm #userinput").focus();
 });
 
 $(function(){
