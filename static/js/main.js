@@ -4,8 +4,8 @@ $("#transcribeForm").submit(function(event) {
 	event.preventDefault();
 	var text = $("#userinput").val();
 	var format = 'IPA'
-	if ($("#APA").hasClass("selected") == true) {
-		format = 'APA'
+	if ($("#ARPA").hasClass("selected") == true) {
+		format = 'ARPA'
 	}
 	var url = "/transcribe/" + format + "/" + text
 	$("#userinput").val("");
@@ -42,8 +42,8 @@ $(function(){
 var save;
 $("#help").hover(function() {
 	save = [$("#transcription p").html(),$("#transcription p").css("font-size")];
-	$("#transcription p").css("font-size", "40px");
-	$("#transcription p").html("Welcome to Phonetic.me! Use this tool to turn English words into phonetics. Type a word in the box below and hit enter. Click the buttons to switch between IPA and APA (coming soon).");
+	$("#transcription p").css("font-size", "30px");
+	$("#transcription p").html("Welcome to Phonetic.me! Use this tool to turn English words into phonetics. Type a word in the box below and hit enter. Click the buttons to switch between IPA and APA (coming soon). Transciptions come from the CMU Pronouncing Dictionary. Suggestions/feedback? send me a message at nort.ryan@gmail.com");
 }, 
 function() {
 	$("#transcription p").html(save[0]);
