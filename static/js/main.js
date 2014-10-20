@@ -75,7 +75,7 @@ var save;
 $("#help").hover(function() {
 	save = [$("#transcription p").html(),$("#transcription p").css("font-size")];
 	$("#transcription p").css("font-size", "30px");
-	$("#transcription p").html("Welcome to Phonetic.me! Use this tool to turn English words into phonetics. Type a word in the box below and hit enter. Click the buttons to switch between IPA and APA (coming soon). Transciptions come from the CMU Pronouncing Dictionary. Suggestions/feedback? send me a message at nort.ryan@gmail.com");
+	$("#transcription p").html("Welcome to Phonetic.me! Use this tool to turn English words into phonetics. Type a word in the box below and hit enter. Click the buttons to switch between IPA and ARPABET. Transciptions come from the CMU Pronouncing Dictionary. Suggestions/feedback? Send me a message at nort.ryan@gmail.com :)");
 }, 
 function() {
 	$("#transcription p").html(save[0]);
