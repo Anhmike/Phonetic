@@ -6,8 +6,8 @@ validRequests = 0;
 wordcache = {};
 current_word = {
 	valid : true,
-	ipa: "Type below to transcribe!",
-	arpa: "Type below to transcribe!"
+	ipa: "fʌnɛtɪk.mi",
+	arpa: "fʌnɛtɪk.mi"
 };
 
 $("#transcribeForm").submit(function(event) {
