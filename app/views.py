@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from nltk.corpus import cmudict
+import nltk
+import os
+
+nltk.data.path = [os.path.join((os.path.dirname(os.path.dirname(__file__))),"cmudict")]
 
 def index(request):
 	return render(request, 'index.html')
